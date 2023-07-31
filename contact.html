@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nimta High School H.S</title>
+    <link rel="icon" href="img/logo.jpg"  type="image/x-icon">
+    <link rel="stylesheet" href="style.css">
+    <script defer src="script.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300&display=swap" rel="stylesheet">
+    <!-- -------------------------------bootstrap---------------------------------------- -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <?php include 'connection.php'; ?>
+  </head> 
+<body class="contbakcol">
+  
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class="container-fluid">
+              
+              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                  <li class="nav-item">
+                    <a class="nav-link"  href="index.html">ℍ𝕠𝕞𝕖</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="about.html">𝔸𝕓𝕠𝕦𝕥 𝕌𝕤</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="notice.html">ℕ𝕠𝕥𝕚𝕔𝕖</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="gallery.html">𝔾𝕒𝕝𝕝𝕖𝕣𝕪</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link active" href="contact.html">ℂ𝕠𝕟𝕥𝕒𝕔𝕥</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="payment.html">ℙ𝕒𝕪𝕞𝕖𝕟𝕥𝕤</a>
+                  </li>
+                </ul>
+                                      <!-- Search Button -->
+                <form class="d-flex" action="search.php" method="GET">
+                  <input class="form-control me-2" type="search" name="query" placeholder="Search" aria-label="Search">
+                  <button class="btn btn-outline-success" type="submit">Search</button>
+              </form>
+               
+              </div>
+            </div>
+          </nav>
+    </header>
+            
+            
+
+    <form id="regForm" action="connection.php" method="POST">
+            <h1 class="see">Register:</h1>
+            <!-- One "tab" for each step in the form: -->
+            <div class="tab"><h4 class="see">Name:</h4>
+                <p><input placeholder="First name..." oninput="this.className = ''" name="fname"></p>
+                <p><input placeholder="Last name..." oninput="this.className = ''" name="lname"></p>
+            </div>
+            <div class="tab">Contact Info:
+                <p><input placeholder="E-mail..." oninput="this.className = ''" name="email"></p>
+                <p><input placeholder="Phone..." oninput="this.className = ''" name="phone"></p>
+            </div>
+            <div class="tab">Birthday:
+                <p><input placeholder="DAY" oninput="this.className = ''" name="DAY"></p>
+                <p><input placeholder="MONTH" oninput="this.className = ''" name="MONTH"></p>
+                <p><input placeholder="YEAR" oninput="this.className = ''" name="YEAR"></p>
+            </div>
+            <div class="tab">Login Info:
+                <p><input placeholder="Username..." oninput="this.className = ''" name="uname"></p>
+                <p><input placeholder="Password..." oninput="this.className = ''" name="pword" type="password"></p>
+            </div>
+            <div style="overflow:auto;">
+                <div style="float:right;">
+                <button type="button" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
+                <button type="button" id="nextBtn" onclick="nextPrev(1)">Next</button>
+                </div>
+            </div>
+            <!-- Circles which indicates the steps of the form: -->
+            <div style="text-align:center;margin-top:40px;">
+                <span class="step"></span>
+                <span class="step"></span>
+                <span class="step"></span>
+                <span class="step"></span>
+            </div>
+    </form>
+
+    <script>
+            var currentTab = 0; // Current tab is set to be the first tab (0)
+            showTab(currentTab); // Display the current tab
+
+            function showTab(n) {
+            // This function will display the specified tab of the form...
+            var x = document.getElementsByClassName("tab");
+            x[n].style.display = "block";
+            //... and fix the Previous/Next buttons:
+            if (n == 0) {
+                document.getElementById("prevBtn").style.display = "none";
+            } else {
+                document.getElementById("prevBtn").style.display = "inline";
+            }
+            if (n == (x.length - 1)) {
+                document.getElementById("nextBtn").innerHTML = "Submit";
+            } else {
+                document.getElementById("nextBtn").innerHTML = "Next";
+            }
+            //... and run a function that will display the correct step indicator:
+            fixStepIndicator(n)
+            }
+
+            function nextPrev(n) {
+            // This function will figure out which tab to display
+            var x = document.getElementsByClassName("tab");
+            // Exit the function if any field in the current tab is invalid:
+            if (n == 1 && !validateForm()) return false;
+            // Hide the current tab:
+            x[currentTab].style.display = "none";
+            // Increase or decrease the current tab by 1:
+            currentTab = currentTab + n;
+            // if you have reached the end of the form...
+            if (currentTab >= x.length) {
+                // ... the form gets submitted:
+                document.getElementById("regForm").submit();
+                return false;
+            }
+            // Otherwise, display the correct tab:
+            showTab(currentTab);
+            }
+
+            function validateForm() {
+            // This function deals with validation of the form fields
+            var x, y, i, valid = true;
+            x = document.getElementsByClassName("tab");
+            y = x[currentTab].getElementsByTagName("input");
+            // A loop that checks every input field in the current tab:
+            for (i = 0; i < y.length; i++) {
+                // If a field is empty...
+                if (y[i].value == "") {
+                // add an "invalid" class to the field:
+                y[i].className += " invalid";
+                // and set the current valid status to false
+                valid = false;
+                }
+            }
+            // If the valid status is true, mark the step as finished and valid:
+            if (valid) {
+                document.getElementsByClassName("step")[currentTab].className += " finish";
+            }
+            return valid; // return the valid status
+            }
+
+            function fixStepIndicator(n) {
+            // This function removes the "active" class of all steps...
+            var i, x = document.getElementsByClassName("step");
+            for (i = 0; i < x.length; i++) {
+                x[i].className = x[i].className.replace(" active", "");
+            }
+            //... and adds the "active" class on the current step:
+            x[n].className += " active";
+            }
+    </script>
+</body>
+</html>
